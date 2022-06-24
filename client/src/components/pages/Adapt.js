@@ -67,10 +67,10 @@ const Adapt = () => {
     return (
         <>
             <div className='box-transport-method'>       
-                <TransportBtn transport={"pied"} bgColor={"#F83340"}/>
-                <TransportBtn transport={"bus"} bgColor={"#FFE046"}/>
-                <TransportBtn transport={"tram"} bgColor={"#30F680"}/>
-                <TransportBtn transport={"train"} bgColor={"#338CF1"}/>
+                <TransportBtn transport={"pied"} bgColor={"linear-gradient(#fd626c,#F83340)"}/>
+                <TransportBtn transport={"bus"} bgColor={"linear-gradient(#FFE046,#ffc600)"}/>
+                <TransportBtn transport={"tram"} bgColor={"linear-gradient(#30D680,#00c94c)"}/>
+                <TransportBtn transport={"train"} bgColor={"linear-gradient(#338CF1,#0b60c1)"}/>
             </div>
 
             <div className="choice-stops">

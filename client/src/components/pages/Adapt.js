@@ -6,6 +6,7 @@ import "../style/adapt.css"
 const Adapt = () => {
 
     // const [arrets, setArrets] = useState([])
+    const [arret, setArret] = useState("")
     const arrets = {
         "stops":
             [
@@ -16,8 +17,44 @@ const Adapt = () => {
             ]
         
     }
+
+    function distance(lat1, lon1, lat2, lon2) {
+        var R = 6378.137; var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+        var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); var d = R * c;
+        return Math.floor(d * 1000);
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          return false
+        }
+      }
+
+      function showPosition(position) {
+        const location = arrets.stops.find((spot)=> spot.name === arret)
+        if(location === undefined) return
+        // console.log(location.Latitude)
+        console.log(position.coords.latitude,position.coords.longitude)
+        const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
+        console.log(long)
+        if(long == 2){
+            vibrate()
+        }      
+      }
+
     const vibrate = ()=>{
         window.navigator.vibrate([700,300,700])
+    }
+    const handleArrets = (e)=>{
+        setArret(e.target.value)
+    }
+
+    function estAuPost(){
+        setInterval(getLocation(),2000)
     }
     
     // useEffect(()=>{
@@ -35,7 +72,8 @@ const Adapt = () => {
             </div>
 
             <div className="choice-stops">
-                <input list="stops" id='search'/>
+                <input list="stops" id='search' onChange={handleArrets}/>
+                <button onClick={estAuPost}>commencer</button>
 
                 <datalist id='stops'>
                     {

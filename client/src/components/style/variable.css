@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
 
 :root{
-	--blue: linear-gradient(#4b9fff,#338CF1);
-	--green: linear-gradient(#58f2a3, #30D680);
+	--blue: linear-gradient(#0b60c1,#338CF1);
+	--green: linear-gradient(#25ca75, #30D680);
 	--yellow: linear-gradient(#ffe66a,#FFE046);
 	--red: linear-gradient(#fd626c, #F83340);
 	--white: #F1F3F9;

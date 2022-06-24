@@ -6,9 +6,14 @@ body{
 }
 
 .icon{
-    width: 195px;
+    width: 35%;
     height: 80px;
     padding: 15px;
+    margin: 10px;
     border-radius: 15px;
+    text-align: center;
     background: var(--red);
+}
+.icon img{
+    height: 80px;
 }

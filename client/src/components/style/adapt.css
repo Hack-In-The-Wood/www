@@ -1,6 +1,7 @@
 .box-transport-method{
     display: flex;
     flex-wrap: wrap;
-    width: 390px;
+    justify-content: center;
+    margin: 10px;
     background-color: black;
 }

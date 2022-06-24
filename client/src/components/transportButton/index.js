@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../style/trannsportButton.css"
+import "../style/transportButton.css"
 
 const TransportBtn = (props) => {
     const [transport, setTransport] = useState(props.transport)

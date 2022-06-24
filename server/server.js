@@ -42,21 +42,26 @@ httpServer.listen(config.server.port, () => {
 // Method web-socket
 io.on('connection', (client) => {
 	var connection = client.handshake.headers['x-real-ip']
+	if(!connection) {
+		var connection = realIp(client.handshake.address)
+	}
+	
+
 	logger.log('Socket connect', `[true, "${connection}"]`)
 	client.on('request' ,(req) => {
-		try {
+		// try {
 			var req_parse = req
 			request(req_parse, connection, function(res) {
 				logger.log('Socket receive', `[true, "${connection}"]`)
 				client.emit('response', Object.assign(res, {target: req_parse.target}))
 			})
-		} catch {
-			logger.log('Socket receive', `[false, "${connection}"]`)
-			client.emit('response', {
-				success: false,
-				message: "bad request"
-			})
-		}
+		// } catch {
+		// 	logger.log('Socket receive', `[false, "${connection}"]`)
+		// 	client.emit('response', {
+		// 		success: false,
+		// 		message: "bad request"
+		// 	})
+		// }
 	})
 	client.on('disconnect', () => {
 		logger.log('Socket disconnect', `[false, "${connection}"]`)
@@ -84,10 +89,11 @@ class cooldown {
 }
 
 const cooldownPing = new cooldown(20)
+const cooldownDiff = new cooldown(1000)
 
 // Request manager
 function request(req, connection, callback) {
-	try {
+	// try {
 		if (req.target) {
 			switch (req.target.toLowerCase()) {
 				// Core
@@ -102,22 +108,43 @@ function request(req, connection, callback) {
 					}
 					break
 
+				case 'diff':
+					if (cooldownDiff.test(connection)) {
+						callback(distance.diff(req.params))
+					} else {
+						callback({
+							success: false,
+							message: "wait"
+						})
+					}
+					break
+
 				default:
 					callback({
 						success: false,
-						message: "bad request"
+						message: "bad request 1"
 					})
 			}
 		} else {
 			callback({
 				success: false,
-				message: "bad request"
+				message: "bad request 2"
 			})
 		}
-	} catch {
-		callback({
-			success: false,
-			message: "bad request"
-		})
+	// } catch {
+	// 	callback({
+	// 		success: false,
+	// 		message: "bad request 3"
+	// 	})
+	// }
+}
+
+// Return real IP
+function realIp(fakeip) {
+	var ip = fakeip.split(':')
+	if (ip[ip.length - 1] == 1) {
+		return '127.0.0.1'
+	} else {
+		return ip[ip.length - 1]
 	}
 }

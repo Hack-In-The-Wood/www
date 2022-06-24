@@ -1,5 +1,6 @@
 {
     "server":{
         "port": 3001
-    }
+    },
+    "googleKey": "AIzaSyAcITCLaYq0CBUb3PxJWI22Sqxfe39hnc0"
 }

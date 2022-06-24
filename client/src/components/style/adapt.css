@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 9vw;
-    margin-top: 35vh;
+    margin-top: 30vh;
     background-color: #ffffff8b;
     filter: drop-shadow(0px 0px 20px var(--black-shadow));
     backdrop-filter: blur(5px);
@@ -16,7 +16,7 @@
 	width: 55vw;
 	font-size: 10px;
 	border-width: 12px;
-	border-color: var(--blue-solid);
+	border-color: #338CF1;
 	background-color: var(--white);
 	border-style: solid;
 	border-radius: 30px;

@@ -7,6 +7,8 @@ const Adapt = () => {
 
     // const [arrets, setArrets] = useState([])
     const [arret, setArret] = useState("")
+    const [dist, setDist] = useState()
+
     const arrets = {
         "stops":
             [
@@ -26,9 +28,17 @@ const Adapt = () => {
         return Math.floor(d * 1000);
     }
 
-    function getLocation() {
+    const vibrate = ()=>{
+        window.navigator.vibrate([700,300,700])
+    }
+
+    const handleArrets = (e)=>{
+        setArret(e.target.value)
+    }
+
+      function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.watchPosition(showPosition, err=>{console.log(err)},  { enableHighAccuracy: true, maximumAge: 100, timeout: 500000 });
         } else { 
           return false
         }
@@ -36,32 +46,24 @@ const Adapt = () => {
 
       function showPosition(position) {
         const location = arrets.stops.find((spot)=> spot.name === arret)
+
         if(location === undefined) return
-        // console.log(location.Latitude)
-        console.log(position.coords.latitude,position.coords.longitude)
+
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
-        console.log(long)
-        if(long == 2){
+        document.getElementById('test').innerText = `${position.coords.latitude} ET ${position.coords.longitude}`
+        
+        if(long <= 7){
             vibrate()
         }      
       }
-
-    const vibrate = ()=>{
-        window.navigator.vibrate([700,300,700])
-    }
-    const handleArrets = (e)=>{
-        setArret(e.target.value)
-    }
-
-    function estAuPost(){
-        setInterval(getLocation(),2000)
-    }
+    
     
     // useEffect(()=>{
     //     fetch('https://static.tectime.be/stops?all=true')
     //     .then(response => response.json())
     //     .then(data => setArrets(data.StopsResult));
     // },[])
+
     return (
         <>
             <div className='box-transport-method'>       
@@ -73,13 +75,15 @@ const Adapt = () => {
 
             <div className="choice-stops">
                 <input list="stops" id='search' onChange={handleArrets}/>
-                <button onClick={estAuPost}>commencer</button>
+                <button onClick={getLocation}>commencer</button>
 
                 <datalist id='stops'>
                     {
                        arrets.stops.map((arret, i)=> <option value={arret.name} key={i}/>)         
                     }
                 </datalist>
+                {/* <span className='dist'>{dist}</span> */}
+                <span className='dist' id="test"></span>
             </div>
         </>
     );

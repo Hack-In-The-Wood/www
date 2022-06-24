@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import TransportBtn from '../transportButton';
+import "../style/adapt.css"
 
 const Adapt = () => {
     const vibrate = ()=>{

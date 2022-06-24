@@ -1,0 +1,6 @@
+.box-transport-method{
+    display: flex;
+    flex-wrap: wrap;
+    width: 390px;
+    background-color: black;
+}

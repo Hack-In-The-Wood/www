@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const TransportBtn = (props) => {
     const [transport, setTransport] = useState(props.transport)
     return (
-        <div>
-            
+        <div className='icon'>
+            <img src={`/icons/${transport}-ico.svg`} alt={transport} />
         </div>
     );
 };

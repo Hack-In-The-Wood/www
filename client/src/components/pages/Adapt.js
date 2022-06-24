@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import TransportBtn from '../transportButton';
 
 const Adapt = () => {
     const vibrate = ()=>{
@@ -6,8 +7,11 @@ const Adapt = () => {
     }
     
     return (
-        <div>       
-            <button onClick={vibrate}>test</button>
+        <div className='box-transport-method'>       
+            <TransportBtn transport={"bus"}/>
+            <TransportBtn transport={"train"}/>
+            <TransportBtn transport={"pied"}/>
+            <TransportBtn transport={"tram"}/>
         </div>
     );
 };

@@ -89,7 +89,7 @@ class cooldown {
 }
 
 const cooldownPing = new cooldown(20)
-const cooldownDiff = new cooldown(1000)
+const cooldownDirection = new cooldown(1000)
 
 // Request manager
 function request(req, connection, callback) {
@@ -108,9 +108,9 @@ function request(req, connection, callback) {
 					}
 					break
 
-				case 'diff':
-					if (cooldownDiff.test(connection)) {
-						callback(distance.diff(req.params))
+				case 'direction':
+					if (cooldownDirection.test(connection)) {
+						callback(direction.direction(req.params))
 					} else {
 						callback({
 							success: false,

@@ -49,19 +49,19 @@ io.on('connection', (client) => {
 
 	logger.log('Socket connect', `[true, "${connection}"]`)
 	client.on('request' ,(req) => {
-		// try {
+		try {
 			var req_parse = req
 			request(req_parse, connection, function(res) {
 				logger.log('Socket receive', `[true, "${connection}"]`)
 				client.emit('response', Object.assign(res, {target: req_parse.target}))
 			})
-		// } catch {
-		// 	logger.log('Socket receive', `[false, "${connection}"]`)
-		// 	client.emit('response', {
-		// 		success: false,
-		// 		message: "bad request"
-		// 	})
-		// }
+		} catch {
+			logger.log('Socket receive', `[false, "${connection}"]`)
+			client.emit('response', {
+				success: false,
+				message: "bad request"
+			})
+		}
 	})
 	client.on('disconnect', () => {
 		logger.log('Socket disconnect', `[false, "${connection}"]`)
@@ -93,7 +93,7 @@ const cooldownDirection = new cooldown(1000)
 
 // Request manager
 function request(req, connection, callback) {
-	// try {
+	try {
 		if (req.target) {
 			switch (req.target.toLowerCase()) {
 				// Core
@@ -110,7 +110,9 @@ function request(req, connection, callback) {
 
 				case 'direction':
 					if (cooldownDirection.test(connection)) {
-						callback(direction.direction(req.params))
+						direction.direction(req.params, function(out) {
+							callback(out)
+						})
 					} else {
 						callback({
 							success: false,
@@ -131,12 +133,12 @@ function request(req, connection, callback) {
 				message: "bad request 2"
 			})
 		}
-	// } catch {
-	// 	callback({
-	// 		success: false,
-	// 		message: "bad request 3"
-	// 	})
-	// }
+	} catch {
+		callback({
+			success: false,
+			message: "bad request 3"
+		})
+	}
 }
 
 // Return real IP

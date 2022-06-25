@@ -64,6 +64,7 @@ const Adapt = () => {
                 window.navigator.vibrate([200, 2000, 200]);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         
       }
     }
@@ -145,6 +146,8 @@ const Adapt = () => {
           <button onClick={handleEnCours}>commencer</button>
           {distanceTrajet}
 =======
+=======
+>>>>>>> 7826b7e9d011d249cb3d652c4616585950c5ca73
       }	
 	return (
 		<>
@@ -191,8 +194,12 @@ const Adapt = () => {
   );
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 export default Adapt;
+=======
+export default Adapt;
+>>>>>>> 7826b7e9d011d249cb3d652c4616585950c5ca73
 =======
 export default Adapt;
 >>>>>>> 7826b7e9d011d249cb3d652c4616585950c5ca73

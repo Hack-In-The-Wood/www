@@ -12,7 +12,7 @@
 
 .choice-stops{
 	display: flex;
-	width: 55vw;
+	width: 80vw;
 	font-size: 10px;
 	border-width: 12px;
 	border-color: #338CF1;
@@ -31,6 +31,9 @@
 	background-color: var(--white);
 	padding: 10px;
 	margin: 0;
+	outline: inherit;
+	font-weight: bold;
+	color: #1E1F22;
 }
 
 .choice-stops svg{
@@ -38,4 +41,20 @@
 	margin-top: 5px;
 	height: 40px;
 	fill: #338CF1;
+}
+
+.start-button{
+	width: 100vw;
+}
+
+.start-button button{
+	font-weight: bold;
+	font-size: 25pt;
+	background: var(--blue);
+	color: var(--white);
+	padding: 10px;
+	border-radius: 20px;
+	border: none;
+	outline: inherit;
+	margin: auto;
 }

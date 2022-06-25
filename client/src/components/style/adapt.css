@@ -1,6 +1,7 @@
 .box-transport-method{
-	column-count: 2;
-	padding-top: 5vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
     margin-top: 30vh;
 	margin-left: 1vw;
 	margin-right: 1vw;

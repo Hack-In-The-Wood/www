@@ -31,6 +31,10 @@ const Adapt = () => {
 		
 	}
 
+    function handleTransport(){
+        setTransport(!transport)
+    }
+
 	function distance(lat1, lon1, lat2, lon2) {
 		var R = 6378.137; var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
 		var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
@@ -39,8 +43,9 @@ const Adapt = () => {
 		return Math.floor(d * 1000);
 	}
 
-	const vibrate = ()=>{
-		window.navigator.vibrate([700,300,700])
+	const vibrate = (distance)=>{
+        if(distance)
+		window.navigator.vibrate([200,distance*150,200])
 	}
 
 	const handleArrets = (e)=>{
@@ -51,15 +56,24 @@ const Adapt = () => {
         setUserPosition({latitude: position.coords.latitude, longitude:position.coords.longitude})
 	  }
 
+      function searchStops(){
+        const stop = arrets.stops.find((spot) => spot.name === arret)
+        while(distance(userPosition.latitude,userPosition.longitude, stop.Latitude,stop.Longitude) > 0){
+            if(distance < 20){
+                vibrate(distance)
+            }
+        }
+      }
+
 	return (
 		<>
         {
             transport ? (
                 <div className='box-transport-method'>       
-                    <TransportBtn transport={"pied"} bgColor={"linear-gradient(#fd626c,#F83340)"}/>
-                    <TransportBtn transport={"bus"} bgColor={"linear-gradient(#FFE046,#ffc600)"}/>
-                    <TransportBtn transport={"tram"} bgColor={"linear-gradient(#30D680,#00c94c)"}/>
-                    <TransportBtn transport={"train"} bgColor={"linear-gradient(#338CF1,#0b60c1)"}/>
+                    <span onClick={handleTransport}><TransportBtn transport={"pied"} bgColor={"linear-gradient(#fd626c,#F83340)"}/></span>
+                    <span><TransportBtn transport={"bus"} bgColor={"linear-gradient(#FFE046,#ffc600)"}/></span>
+                    <span><TransportBtn transport={"tram"} bgColor={"linear-gradient(#30D680,#00c94c)"}/></span>
+                    <span><TransportBtn transport={"train"} bgColor={"linear-gradient(#338CF1,#0b60c1)"}/></span>
 			    </div>
             ):(
                 <>

@@ -57,7 +57,6 @@ const Adapt = () => {
         }      
       }
     
-    
     // useEffect(()=>{
     //     fetch('https://static.tectime.be/stops?all=true')
     //     .then(response => response.json())
